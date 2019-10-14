@@ -3,9 +3,9 @@ import {
   Platform,
   StyleSheet,
   Text, View, ImageBackground, Image, Animated, TouchableWithoutFeedback } from 'react-native';
-import Menu from '../menu/Menu';
-import News from '../news/News';
-import NewsExpanded from '../news/NewsExpanded';
+import Menu from '../Menu';
+import News from '../News';
+import NewsExpanded from '../News/NewsExpanded';
 
 export default class Home extends Component {
   newsExpanded = createRef();

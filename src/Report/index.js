@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { StyleSheet, View, Image, ScrollView } from 'react-native';
-import Header from '../common/Header';
-import InputField from '../common/InputField';
-import Buttons from '../common/Buttons';
+import { Header, InputField, Buttons } from '../Common'
 
 export default class Report extends Component {
   state = {

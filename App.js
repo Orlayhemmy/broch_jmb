@@ -1,14 +1,15 @@
 import React, { Component, createRef } from 'react';
 import { ImageBackground, View, TouchableWithoutFeedback } from 'react-native';
-import Carousel from './src/carousel/Carousel';
-import Home from './src/home/Home';
-import Brochure from './src/menu/Menu';
-import Faq from './src/faq/Faq';
-import CutOffs from './src/menu/Menu';
-import Centers from './src/centers/Centers';
-import Report from './src/report/Report';
-import Menu from './src//menu/Menu';
-import MenuControls from './src/menu/MenuControls';
+import {
+  Carousel,
+  Home,
+  Brochure,
+  Faq,
+  CutOffs,
+  Centers,
+  Report,
+  MenuControls
+} from './src';
 
 
 const PageContent = ({toggleMenu, children }) => (
