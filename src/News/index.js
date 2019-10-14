@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, View, Text, Image, TouchableHighlight} from 'react-native';
-import Carousel from '../carousel/Carousel';
+import Carousel from '../Carousel';
 import PropTypes from 'prop-types';
 
 export default class News extends Component {

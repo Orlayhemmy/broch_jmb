@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { StyleSheet, Dimensions, View, Text, Animated, Image, TouchableOpacity, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import CollapsibleList from '../common/CollapsibleList';
+import CollapsibleList from '../Common/CollapsibleList';
 import { Fonts } from '../utils';
 
 let isHidden = true;

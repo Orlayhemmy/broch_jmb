@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { View, StyleSheet, TouchableHighlight } from 'react-native';
-import Menu from './Menu';
+import Menu from '.';
 
 export default class MenuControls extends Component {
   state = {

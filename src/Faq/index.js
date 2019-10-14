@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Text, View, StyleSheet, TouchableWithoutFeedback, Image} from 'react-native';
-import Header from '../common/Header';
-import CollapsibleList from '../common/CollapsibleList';
+import { Header, CollapsibleList } from '../Common'
 
 export default class Faq extends Component {
   state = {
