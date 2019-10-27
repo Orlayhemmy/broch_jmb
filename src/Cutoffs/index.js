@@ -1,15 +1,8 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableWithoutFeedback, Image} from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 
-export default class Cutoffs extends Component {
-  state = {
-    schools: [
+const Cutoffs = () => (
+  <View />
+);
 
-    ]
-  }
-  render() {
-    return (
-      <View></View>
-    );
-  }
-}
+export default Cutoffs

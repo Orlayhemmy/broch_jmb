@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
-import { TextInput, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import {
+  TextInput, StyleSheet, Text, View
+} from 'react-native';
 import { Fonts } from '../utils';
 
-export default class InputField extends Component {
-  render() {
-    const { title, isMultiline, handleChange, err } = this.props;
+const InputField = (props) => {
+  const {
+    title, isMultiline, handleChange, err
+  } = props;
 
-    return (
-      <View style={{marginTop: 25}}>
-        <Text style={styles.label}>{title}</Text>
-        {err && <Text style={styles.err}>{err}</Text>}
-        <TextInput
-          style = {styles.input}
-          placeholder = {title}
-          multiline = {true}
-          numberOfLines = {isMultiline ? 5 : null}
-          onChangeText = {handleChange}
-        />
-      </View>
-    );
-  }
+  return (
+    <View style={{ marginTop: 25 }}>
+      <Text style={styles.label}>{title}</Text>
+      {err && <Text style={styles.err}>{err}</Text>}
+      <TextInput
+        style={styles.input}
+        placeholder={title}
+        multiline
+        numberOfLines={isMultiline ? 5 : null}
+        onChangeText={handleChange}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -42,5 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5C940020',
     fontSize: 24,
     fontFamily: Fonts.RobotoRegular,
- },
-})
+  },
+});
+
+export default InputField

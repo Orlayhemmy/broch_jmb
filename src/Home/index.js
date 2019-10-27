@@ -1,63 +1,65 @@
-import React, { Component, createRef, Fragment } from 'react';
+import React, { Component, createRef } from 'react';
 import {
-  Platform,
   StyleSheet,
-  Text, View, ImageBackground, Image, Animated, TouchableWithoutFeedback } from 'react-native';
-import Menu from '../Menu';
+  Text, View, Image
+} from 'react-native';
 import News from '../News';
 import NewsExpanded from '../News/NewsExpanded';
+import { jambLogo } from '../utils/images'
 
 export default class Home extends Component {
   newsExpanded = createRef();
 
-  toggleNews = i => () => {
+  toggleNews = (i) => () => {
     this.newsExpanded.current.toggleNews(i);
   }
 
   render() {
     return (
-      <Fragment>
+      <>
         <View style={styles.body}>
           <View style={styles.topContainer}>
             <View style={styles.logoContainer}>
               <Image
-                source={require('../../image/jamb-logo.png')}
+                source={jambLogo}
                 style={styles.logo}
-              ></Image>
+              />
             </View>
             <View style={styles.messageContainer}>
               <View style={styles.message}>
                 <Text style={styles.introMessage}>
                   The information in this application is only related to the JOINT ADMISSION
                   MATRICULATION BOARD (JAMB) Exams, and are subject to changes as
-                  deemed fit by the appropriate authorities. {"\n"}The information in this application is only
+                  deemed fit by the appropriate authorities.
+                  {' '}
+                  {'\n'}
+The information in this application is only
                   related to the JOINT ADMISSION MATRICULATION BOARD (JAMB) Exams,
                   and are subject to changes as deemed fit by the appropriate authorities.
                 </Text>
-                </View>
               </View>
+            </View>
           </View>
           <View style={styles.newsContainer}>
-            <News style={{flex: 1.5}} toggleNewsList={this.toggleNews}/>
-            <View style={styles.navigationContainer}>
-            </View>
+            <News style={{ flex: 1.5 }} toggleNewsList={this.toggleNews} />
+            <View style={styles.navigationContainer} />
           </View>
         </View>
         <NewsExpanded ref={this.newsExpanded} />
-      </Fragment>
+      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
   topContainer: {
-    flex: .75,
+    flex: 0.75,
   },
   body: {
     flex: 1,
   },
   logoContainer: {
-    flex: .48,
+    flex: 0.48,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     height: 245,
   },
   messageContainer: {
-    flex: .52,
+    flex: 0.52,
   },
   message: {
     flex: 1,
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     lineHeight: 43,
   },
   newsContainer: {
-    flex: .25,
+    flex: 0.25,
     backgroundColor: '#039D27',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   navigationContainer: {
-    flex: .5,
+    flex: 0.5,
   },
   slider: {
     flex: 7,
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     width: 100,
     position: 'absolute',
     top: -30,
-    borderRadius: 100/2,
+    borderRadius: 100 / 2,
     backgroundColor: '#FFFFFF48',
     alignSelf: 'flex-end',
   },
