@@ -4,9 +4,17 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src --fix",
+    "lint-staged": "lint-staged"
   },
+  "lint-staged": {
+    "*.js": "eslint",
+    "*.css": "stylelint"
+  },
+  "pre-commit": "lint-staged",
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-native": "0.59.4",
     "react-native-snap-carousel": "^3.7.5",
@@ -15,9 +23,17 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/runtime": "^7.4.3",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^24.7.1",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
     "jest": "^24.7.1",
+    "lint-staged": "^9.4.2",
     "metro-react-native-babel-preset": "^0.53.1",
+    "pre-commit": "^1.2.2",
     "react-test-renderer": "16.8.3"
   },
   "jest": {

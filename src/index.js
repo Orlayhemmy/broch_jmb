@@ -8,12 +8,12 @@ import Report from './Report';
 import MenuControls from './Menu/MenuControls';
 
 export {
-	Carousel,
-	Home,
-	Brochure,
-	Faq,
-	CutOffs,
-	Centers,
-	Report,
-	MenuControls
-}
+  Carousel,
+  Home,
+  Brochure,
+  Faq,
+  CutOffs,
+  Centers,
+  Report,
+  MenuControls
+};
