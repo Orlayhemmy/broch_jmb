@@ -1,39 +1,13 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react'
 import {
   StyleSheet, Text, View, Image, TouchableWithoutFeedback, Animated
 } from 'react-native';
-import {
-  home, brochure, center, cutoff, faq, report
-} from '../utils/images'
+import { Theme } from '../utils';
 
 export default class Menu extends Component {
   state = {
-    menuItems: [
-      {
-        name: 'Home',
-        image: home,
-      },
-      {
-        name: 'brochure',
-        image: brochure,
-      },
-      {
-        name: 'cut offs',
-        image: cutoff,
-      },
-      {
-        name: 'centers',
-        image: center,
-      },
-      {
-        name: 'faq',
-        image: faq,
-      },
-      {
-        name: 'report',
-        image: report,
-      },
-    ],
+    menuItems: this.props.menuItems,
     bounceValue: new Animated.Value(200),
   }
 
@@ -47,7 +21,7 @@ export default class Menu extends Component {
 
   assignBounceValue = () => {
     this.setState((prevState) => ({
-      menuItems: prevState.menuItems.map((item) => ({
+      menuItems: prevState.menuItems && prevState.menuItems.map((item) => ({
         ...item,
         bounceValue: new Animated.Value(200)
       }))
@@ -68,7 +42,7 @@ export default class Menu extends Component {
         useNativeDriver: true,
       }
     ).start();
-    menuItems.forEach((item, i) => {
+    menuItems && menuItems.forEach((item, i) => {
       const itemToValue = isMenuVisible ? 0 : 200 * (2 ** i);
 
       Animated.spring(
@@ -84,12 +58,18 @@ export default class Menu extends Component {
   }
 
   render() {
-    const { menuItems, bounceValue } = this.state;
+    const { menuItems, bounceValue } = this.state
+    const { theme } = this.props
 
     return (
-      <Animated.View style={[styles.menu, { transform: [{ translateX: bounceValue }] }]}>
+      <Animated.View style={[
+        styles.menu,
+        { transform: [{ translateX: bounceValue }] },
+        Theme[`${theme}`]
+      ]}
+      >
         <View style={{ marginTop: 30, marginBottom: 30 }}>
-          {menuItems.map(({ name, image }, i) => (
+          {menuItems && menuItems.map(({ name, image }, i) => (
             // eslint-disable-next-line react/destructuring-assignment
             <TouchableWithoutFeedback onPress={() => this.props.changeView(i)} key={i}>
               <Animated.View style={[styles.menuHolder,
@@ -108,7 +88,6 @@ export default class Menu extends Component {
 
 const styles = StyleSheet.create({
   menu: {
-    backgroundColor: '#ffffff80',
     position: 'absolute',
     width: 150,
     height: '100%',
