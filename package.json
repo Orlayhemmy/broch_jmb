@@ -14,9 +14,11 @@
   },
   "pre-commit": "lint-staged",
   "dependencies": {
+    "axios": "^0.18.0",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-native": "0.59.4",
+    "react-native-dotenv": "^0.2.0",
     "react-native-snap-carousel": "^3.7.5",
     "react-native-svg": "^9.4.0"
   },

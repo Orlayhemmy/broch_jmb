@@ -2,7 +2,7 @@ import React from 'react';
 import {
   TextInput, StyleSheet, Text, View
 } from 'react-native';
-import { Fonts } from '../utils';
+import { Fonts } from '../utils/fonts';
 
 const InputField = (props) => {
   const {
