@@ -3,7 +3,7 @@ import {
   StyleSheet, Dimensions, View, Text, Animated, Image, TouchableOpacity, TouchableWithoutFeedback, ScrollView
 } from 'react-native';
 import { CollapsibleList } from '../Common';
-import { Fonts } from '../utils';
+import { Fonts } from '../utils/fonts';
 import {
   nuc, student, thumb, kaduna, sule, closeBtn
 } from '../utils/images';

@@ -3,13 +3,12 @@ import {
   Text, Image, TouchableWithoutFeedback, View
 } from 'react-native';
 import { collapseButton, expandButton } from '../utils/images';
-import { Fonts } from '../utils';
+import { Fonts } from '../utils/fonts';
 
 export const CollapsibleList = (props) => {
   const {
     show, isUpperCase, title, ftSize, toggleActiveItem
   } = props;
-
   return (
     <View style={{ flexDirection: 'row' }}>
       <Text

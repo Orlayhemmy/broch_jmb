@@ -2,7 +2,7 @@ import React from 'react';
 import {
   TouchableOpacity, View, Text, StyleSheet
 } from 'react-native';
-import { Fonts } from '../utils';
+import { Fonts } from '../utils/fonts';
 
 const Buttons = (props) => {
   const { title, click } = props;

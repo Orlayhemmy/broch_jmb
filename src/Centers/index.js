@@ -1,79 +1,9 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
-  Text, View, StyleSheet, TouchableWithoutFeedback
+  View, StyleSheet, TouchableWithoutFeedback, ScrollView
 } from 'react-native';
-import { Header, CollapsibleList } from '../Common';
-
-export default class Centers extends Component {
-  state = {
-    centers: {
-      lagos: {},
-      osun: {}
-    },
-    revealRest: false,
-    activeItemIndex: null,
-  }
-
-  toggleActiveState = (i, icon = true) => {
-    const { revealRest, activeItemIndex } = this.state;
-    (icon || (i !== activeItemIndex || !revealRest))
-    && this.setState({
-      activeItemIndex: i,
-      revealRest: !((i === activeItemIndex && revealRest)),
-    });
-  }
-
-  // eslint-disable-next-line react/destructuring-assignment
-  _renderCities = () => Object.entries(this.state.centers).map((entry, i) => (
-    <View style={[styles.faqSection]} key={i}>
-      <TouchableWithoutFeedback>
-        <View style={[{ padding: 30 }, { backgroundColor: '#03902420' }]}>
-          <CollapsibleList
-            title={entry[0]}
-            toggleActiveItem={() => this.toggleActiveState(i)}
-            ftSize={28}
-            show
-          />
-          <Text style={styles.response}>{entry[1]}</Text>
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
-  ))
-
-  _renderStateCenters = () => {
-    const { revealRest, activeItemIndex } = this.state;
-
-    // eslint-disable-next-line react/destructuring-assignment
-    return Object.entries(this.state.centers).map((entry, i) => {
-      const show = revealRest && activeItemIndex === i;
-
-      return (
-        <View style={[styles.faqSection]} key={i}>
-          <TouchableWithoutFeedback onPress={() => this.toggleActiveState(i, false)}>
-            <View style={[{ padding: 30 }, show && { backgroundColor: '#03902420' }]}>
-              <CollapsibleList
-                title={entry[0]}
-                toggleActiveItem={() => this.toggleActiveState(i)}
-                ftSize={28}
-                show={show}
-              />
-              {show && this._renderCities(entry[1])}
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      );
-    });
-  }
-
-  render() {
-    return (
-      <View>
-        <Header title="Approved CBT Centers" />
-        {this._renderStateCenters()}
-      </View>
-    );
-  }
-}
+import { Header, CollapsibleList } from '../Common'
+import { api, useEffectAsync } from '../utils';
 
 const styles = StyleSheet.create({
   faqSection: {
@@ -92,4 +22,77 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     textAlign: 'justify'
   }
-});
+})
+
+const Centers = () => {
+  const [states, setStates] = useState([])
+  const [cities, setCities] = useState([])
+  const [revealRest, toggleActiveState] = useState(false)
+  const [activeItemIndex, setActiveItem] = useState(null)
+
+  useEffectAsync(async () => {
+    setStates(await api('states'))
+  }, [])
+
+  const steps = (show, i, id) => {
+    !show && fetchCities(id)
+    toggle(i, false)
+  }
+  const fetchCities = async (id) => {
+    setCities(await api('cities', `sid=${id}`))
+  }
+
+  const toggle = (i, icon = true) => {
+    if (icon || (i !== activeItemIndex || !revealRest)) {
+      setActiveItem(i)
+      toggleActiveState(!((i === activeItemIndex && revealRest)))
+    }
+  }
+
+  const _renderCities = () => cities.map(({ city_name: name }, i) => (
+    <View style={[styles.faqSection]} key={i}>
+      <TouchableWithoutFeedback>
+        <View style={[{ padding: 30 }, { backgroundColor: '#03902420' }]}>
+          <CollapsibleList
+            title={name}
+            toggleActiveItem={() => toggle(i)}
+            ftSize={28}
+            show
+          />
+          {/* <Text style={styles.response}>{entry[1]}</Text> */}
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
+  ))
+
+  const _renderStateCenters = () => states.map(({ name, state_id: sid }, i) => {
+    const show = revealRest && activeItemIndex === i;
+
+    return (
+      <View style={[styles.faqSection]} key={i}>
+        <TouchableWithoutFeedback onPress={() => steps(show, i, sid)}>
+          <View style={[{ padding: 30 }, show && { backgroundColor: '#03902420' }]}>
+            <CollapsibleList
+              title={name}
+              toggleActiveItem={() => toggle(i)}
+              ftSize={28}
+              show={show}
+            />
+            {show && _renderCities()}
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
+    )
+  })
+
+  return (
+    <View>
+      <Header title="Approved CBT Centers" />
+      <ScrollView>
+        {_renderStateCenters()}
+      </ScrollView>
+    </View>
+  );
+}
+
+export default Centers
