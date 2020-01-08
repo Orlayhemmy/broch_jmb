@@ -1,57 +1,65 @@
-import React, { Component, createRef } from 'react';
+import React, { useState, createRef } from 'react';
 import { ImageBackground, View, TouchableWithoutFeedback } from 'react-native';
 import {
   Carousel,
-  Home,
-  Brochure,
-  Faq,
-  CutOffs,
-  Centers,
-  Report,
   MenuControls
 } from './src';
-import { background } from './src/utils/images';
+import {
+  background
+} from './src/utils/images';
+import { ActivePageContext } from './src/utils';
+import { menuItems } from './src/utils/menuItems'
 
+const pickTheme = (page) => (['centers', 'report', 'faq'].includes(page)
+  ? 'secondary'
+  : 'primary')
 
-export default class App extends Component {
-  carousel = createRef();
+const App = () => {
+  const [currentTheme, setCurrentTheme] = useState('primary')
 
-  menuControl = createRef();
+  const carousel = createRef();
 
-  state = {
-    viewsArr: [<Home />, <Brochure />, <CutOffs />, <Centers />, <Faq />, <Report />],
-  }
+  const menuControl = createRef();
 
-  toggleMenu = () => this.menuControl.current.state.isMenuVisible && this.menuControl.current.toggleMenu();
+  const toggleMenu = () => menuControl.current.state.isMenuVisible && menuControl.current.toggleMenu();
 
   /* eslint react/destructuring-assignment: 0 */
-  _renderViews = () => this.state.viewsArr.map((view, i) => (
+  const _renderViews = () => menuItems.map(({ view }, i) => (
     <View key={i}>
       {view}
     </View>
   ))
 
-  changeView = (i) => {
-    this.toggleMenu();
-    this.carousel.current._snapToItem(i);
+  const changeView = (i) => {
+    carousel.current._snapToItem(i);
+    toggleMenu();
+    setTimeout(() => {
+      setCurrentTheme(() => pickTheme(menuItems[i].name))
+    }, 200)
   }
 
-  render() {
-    return (
-      <ImageBackground
-        source={background}
-        style={{ flex: 1 }}
+  return (
+    <ImageBackground
+      source={background}
+      style={{ flex: 1 }}
+    >
+      <ActivePageContext.Provider value={{
+        currentTheme,
+        menuItems
+      }}
       >
-        <TouchableWithoutFeedback onPress={this.toggleMenu}>
+        <TouchableWithoutFeedback onPress={toggleMenu}>
           <View style={{ flex: 1 }}>
             <Carousel
-              content={this._renderViews()}
-              ref={this.carousel}
+              content={_renderViews()}
+              ref={carousel}
             />
           </View>
         </TouchableWithoutFeedback>
-        <MenuControls ref={this.menuControl} changeView={this.changeView} />
-      </ImageBackground>
-    );
-  }
+        <MenuControls ref={menuControl} changeView={changeView} />
+      </ActivePageContext.Provider>
+    </ImageBackground>
+  );
 }
+
+export default App
